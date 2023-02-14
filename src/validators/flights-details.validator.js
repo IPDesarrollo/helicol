@@ -1,0 +1,42 @@
+const { check } = require('express-validator');
+const { validateResults } = require('../utilities/handleValidator');
+
+const createUpdateFlightsDetailsValidator = [
+  check('uuid_flight_detail').optional().notEmpty().isString(),
+  check('pk_flight_detail').optional().notEmpty().isString(),
+  check('arrival_date').optional().notEmpty().isString(),
+  check('arrival_time').optional().notEmpty().isString(),
+  check('cargo').optional().notEmpty().isString(),
+  check('date_created').optional().notEmpty().isString(),
+  check('date_modified').optional().notEmpty().isString(),
+  check('departure_date').optional().notEmpty().isString(),
+  check('departure_time').optional().notEmpty().isString(),
+  check('flight_id').optional().notEmpty().isString(),
+  check('hour').optional().notEmpty().isString(),
+  check('minutes').optional().notEmpty().isString(),
+  check('ipad_id').optional().notEmpty().isString(),
+  check('month_created').optional().notEmpty().isString(),
+  check('observation').optional().notEmpty().isString(),
+  check('passengers_final_destination').optional().notEmpty().isString(),
+  check('passengers_in_transit').optional().notEmpty().isString(),
+  check('pax').optional().notEmpty().isString(),
+  check('route_from').optional().notEmpty().isString(),
+  check('route_to').optional().notEmpty().isString(),
+  check('rp_customer').optional().notEmpty().isString(),
+  check('serial').optional().notEmpty().isString(),
+  check('timestamp_created').optional().notEmpty().isString(),
+  check('timestamp_modified').optional().notEmpty().isString(),
+  check('username_created').optional().notEmpty().isString(),
+  check('username_modified').optional().notEmpty().isString(),
+  check('arrival_date_logbook').optional().notEmpty().isString(),
+  check('arrival_time_logbook').optional().notEmpty().isString(),
+  check('departure_date_logbook').optional().notEmpty().isString(),
+  check('departure_time_logbook').optional().notEmpty().isString(),
+  check('hours_logbook').optional().notEmpty().isString(),
+  check('minutes_logbook').optional().notEmpty().isString(),
+  check('send_email').optional().notEmpty().isString(),
+  check('zync_uploaded_timestamp').optional().notEmpty().isString(),
+  (req, res, next) => validateResults(req, res, next),
+];
+
+module.exports = { createUpdateFlightsDetailsValidator };

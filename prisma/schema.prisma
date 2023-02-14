@@ -1,0 +1,654 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model tbl_md_rp_customers {
+  city                 String?   @db.VarChar(100)
+  company_name         String?   @db.VarChar(100)
+  contact_person       String?   @db.VarChar(100)
+  contact_type         String?   @db.VarChar(50)
+  country              String?   @db.VarChar(50)
+  date_created         DateTime? @db.Date
+  date_modified        DateTime? @db.Date
+  email                String?   @db.VarChar(100)
+  flights              Float?
+  id                   Int       @id @db.UnsignedInt
+  nit                  String?   @db.VarChar(50)
+  phone_company        String?   @db.VarChar(50)
+  phone_contact        String?   @db.VarChar(50)
+  phone_contact_mobile String?   @db.VarChar(50)
+  pin                  Int?      @db.UnsignedInt
+  postal               String?   @db.VarChar(50)
+  record_number        String?   @db.VarChar(50)
+  rp_customer          String?   @db.VarChar(50)
+  street1              String?   @db.VarChar(200)
+  street2              String?   @db.VarChar(200)
+  street3              String?   @db.VarChar(200)
+  timestamp_created    DateTime  @default(now()) @db.Timestamp(0)
+  timestamp_modified   DateTime  @default(dbgenerated("'0000-00-00 00:00:00'")) @db.Timestamp(0)
+  total_flights        Float?
+  total_hours          Float?
+  total_hours_helicol  String?   @db.VarChar(50)
+  total_hours_pas      String?   @db.VarChar(50)
+  type_customer        String?   @db.VarChar(50)
+  username_created     String?   @db.VarChar(50)
+  username_modified    String?   @db.VarChar(50)
+  zz_helicol           String?   @db.VarChar(50)
+  zz_pas               String?   @db.VarChar(50)
+  sync_status          String?   @db.VarChar(50)
+  sync_timestamp       DateTime  @default(dbgenerated("'0000-00-00 00:00:00'")) @db.Timestamp(0)
+  record_status        String    @default("1") @db.Char(1)
+  send_email           String    @default("0") @db.Char(1)
+
+  @@index([company_name], map: "Index_company_name")
+}
+
+model tbl_md_rp_flights {
+  flight_id            Int     @id @default(autoincrement()) @db.UnsignedInt
+  flight_type          String? @db.VarChar(100)
+  flight_model         String? @db.VarChar(100)
+  flight_display_model String? @db.VarChar(100)
+}
+
+model tbl_md_rp_fuel_providers {
+  pk_fuel_provider   Int       @id @default(autoincrement()) @db.UnsignedInt
+  fuel_provider_name String    @db.VarChar(100)
+  timestamp_created  DateTime? @db.DateTime(0)
+  timestamp_modified DateTime? @db.DateTime(0)
+  created_by         String?   @db.VarChar(50)
+  last_modified_by   String?   @db.VarChar(100)
+  record_status      String?   @db.Char(1)
+  contact_person     String?   @db.VarChar(100)
+  address_1          String?   @db.VarChar(100)
+  address_2          String?   @db.VarChar(100)
+  address_3          String?   @db.VarChar(100)
+  city               String?   @db.VarChar(100)
+  rp_customer        String?   @db.VarChar(50)
+  phone              String?   @db.VarChar(50)
+}
+
+model tbl_md_rp_pilots {
+  account_status      String?   @default("active") @db.VarChar(50)
+  activo              String?   @db.VarChar(50)
+  date_created        DateTime? @db.Date
+  date_modified       DateTime? @db.Date
+  department          String?   @db.VarChar(50)
+  last_name           String?   @db.VarChar(200)
+  name                String?   @db.VarChar(200)
+  password            String?   @db.VarChar(50)
+  pch                 String?   @db.VarChar(100)
+  phone               String?   @db.VarChar(50)
+  posicion            String?   @db.VarChar(100)
+  primary             String?   @db.VarChar(50)
+  record_number       String?   @db.VarChar(50)
+  registration_number String?   @db.VarChar(50)
+  rp_customer         String?   @db.VarChar(50)
+  sync_status         String?   @db.VarChar(20)
+  sync_timestamp      DateTime  @default(dbgenerated("'0000-00-00 00:00:00'")) @db.Timestamp(0)
+  timestamp_created   DateTime  @default(dbgenerated("'0000-00-00 00:00:00'")) @db.Timestamp(0)
+  timestamp_modified  DateTime  @default(dbgenerated("'0000-00-00 00:00:00'")) @db.Timestamp(0)
+  username            String?   @db.VarChar(100)
+  username_created    String?   @db.VarChar(100)
+  username_modified   String?   @db.VarChar(100)
+  pk_pilots           Int       @id @db.UnsignedInt
+  record_status       String?   @default("1") @db.Char(1)
+  send_email          String    @default("0") @db.Char(1)
+  vacaciones          String?   @db.VarChar(45)
+
+  @@index([last_name], map: "Index_lastname")
+  @@index([name], map: "Index_name")
+}
+
+model tbl_md_rp_properties {
+  property_type      String   @id @db.VarChar(100)
+  property_value     String?  @db.Text
+  description        String?  @db.VarChar(250)
+  record_status      String   @default("1") @db.Char(1)
+  created_by         String?  @db.VarChar(50)
+  created_date       DateTime @default(now()) @db.Timestamp(0)
+  last_modified_by   String?  @db.VarChar(50)
+  last_modified_date DateTime @default(dbgenerated("'0000-00-00 00:00:00'")) @db.Timestamp(0)
+}
+
+model tbl_md_rp_routes {
+  date_created         DateTime? @db.Date
+  date_modified        DateTime? @db.Date
+  pk_routes            Int       @id @db.UnsignedInt
+  record_number        String?   @db.VarChar(50)
+  route_city           String?   @db.VarChar(150)
+  route_department     String?   @db.VarChar(150)
+  route_description    String?   @db.VarChar(150)
+  route_gps            String?   @db.VarChar(150)
+  route_iata           String?   @db.VarChar(150)
+  route_icao           String?   @db.VarChar(150)
+  rp_customer          String?   @db.VarChar(50)
+  sync_status          String?   @db.VarChar(20)
+  sync_timestamp       DateTime  @default(dbgenerated("'0000-00-00 00:00:00'")) @db.Timestamp(0)
+  timestamp_created    DateTime  @default(dbgenerated("'0000-00-00 00:00:00'")) @db.Timestamp(0)
+  timestamp_modified   DateTime  @default(dbgenerated("'0000-00-00 00:00:00'")) @db.Timestamp(0)
+  username_created     String?   @db.VarChar(100)
+  username_modified    String?   @db.VarChar(100)
+  zync_uploaded        String?   @db.VarChar(50)
+  zync_uploadtimestamp DateTime  @default(dbgenerated("'0000-00-00 00:00:00'")) @db.Timestamp(0)
+  record_status        String    @default("1") @db.Char(1)
+  send_email           String    @default("0") @db.Char(1)
+}
+
+model tbl_md_users {
+  pk_Users    Int     @id @default(autoincrement())
+  Nombre      String  @db.VarChar(45)
+  Usuario     String  @db.VarChar(45)
+  Clave       String  @db.VarChar(45)
+  Privilegios String? @db.VarChar(45)
+  Activo      String? @db.VarChar(45)
+}
+
+model tbl_rp_flight_details {
+  arrival_date                       DateTime? @db.Date
+  arrival_time                       DateTime? @db.Time(0)
+  cargo                              Float?
+  date_created                       DateTime? @db.Date
+  date_modified                      DateTime? @db.Date
+  departure_date                     DateTime? @db.Date
+  departure_time                     DateTime? @db.Time(0)
+  flight_id                          String?   @db.VarChar(100)
+  hour                               Float?
+  ipad_id                            String?   @db.VarChar(100)
+  minutes                            Float?
+  minutes_calc                       Float?
+  month_created                      String?   @db.VarChar(100)
+  observation                        String?   @db.VarChar(1000)
+  passengers_final_destination       Float?
+  passengers_in_transit              Float?
+  pax                                Float?
+  pk_flight_details                  Int       @id @default(autoincrement()) @db.UnsignedInt
+  primary                            String?   @db.VarChar(100)
+  record_number                      String?   @db.VarChar(100)
+  route_from                         String?   @db.VarChar(100)
+  route_to                           String?   @db.VarChar(100)
+  rp_customer                        String?   @db.VarChar(100)
+  serial                             Float?
+  sum_count_details                  Float?
+  sync_status                        String?   @db.VarChar(50)
+  timestamp_created                  DateTime  @default(dbgenerated("'0000-00-00 00:00:00'")) @db.Timestamp(0)
+  timestamp_modified                 DateTime  @default(dbgenerated("'0000-00-00 00:00:00'")) @db.Timestamp(0)
+  total_cargo                        Float?
+  total_hour                         Float?
+  total_minutes                      Float?
+  total_minutes_calc                 Float?
+  total_passengers_final_destination Float?
+  total_passengers_in_transit        Float?
+  total_pax                          Float?
+  unique                             String?   @db.VarChar(250)
+  update_route                       String?   @db.VarChar(100)
+  username_created                   String?   @db.VarChar(100)
+  username_modified                  String?   @db.VarChar(100)
+  zync_uploaded                      String?   @db.VarChar(100)
+  zync_uploaded_timestamp            DateTime  @default(dbgenerated("'0000-00-00 00:00:00'")) @db.Timestamp(0)
+  record_status                      Int?      @default(1)
+  send_email                         String    @default("0") @db.Char(1)
+  route_from_sub                     String?   @db.VarChar(200)
+  route_to_sub                       String?   @db.VarChar(200)
+  arrival_date_logbook               DateTime? @db.Date
+  arrival_time_logbook               DateTime? @db.Time(0)
+  departure_date_logbook             DateTime? @db.Date
+  departure_time_logbook             DateTime? @db.Time(0)
+  minutes_logbook                    Float?
+  hours_logbook                      Float?
+  uuid_flight_detail                 String    @db.Char(36)
+
+  @@index([departure_date], map: "Index_departure_date")
+  @@index([flight_id], map: "Index_flight_id")
+  @@index([route_from], map: "Index_route_from")
+  @@index([route_to], map: "Index_route_to")
+  @@index([arrival_date], map: "arrival_date")
+}
+
+model tbl_rp_flight_details_audit {
+  arrival_date                       DateTime? @db.Date
+  arrival_time                       DateTime? @db.Time(0)
+  cargo                              Float?
+  date_created                       DateTime? @db.Date
+  date_modified                      DateTime? @db.Date
+  departure_date                     DateTime? @db.Date
+  departure_time                     DateTime? @db.Time(0)
+  flight_id                          String?   @db.VarChar(100)
+  hour                               Float?
+  ipad_id                            String?   @db.VarChar(100)
+  minutes                            Float?
+  minutes_calc                       Float?
+  month_created                      String?   @db.VarChar(100)
+  observation                        String?   @db.VarChar(1000)
+  passengers_final_destination       Float?
+  passengers_in_transit              Float?
+  pax                                Float?
+  pk_flight_details                  Int?      @db.UnsignedInt
+  pk_flight_details_audit            Int       @id @default(autoincrement()) @db.UnsignedInt
+  primary                            String?   @db.VarChar(100)
+  record_number                      String?   @db.VarChar(100)
+  route_from                         String?   @db.VarChar(100)
+  route_to                           String?   @db.VarChar(100)
+  rp_customer                        String?   @db.VarChar(100)
+  serial                             Float?
+  sum_count_details                  Float?
+  sync_status                        String?   @db.VarChar(50)
+  timestamp_created                  DateTime? @db.DateTime(0)
+  timestamp_modified                 DateTime? @db.DateTime(0)
+  total_cargo                        Float?
+  total_hour                         Float?
+  total_minutes                      Float?
+  total_minutes_calc                 Float?
+  total_passengers_final_destination Float?
+  total_passengers_in_transit        Float?
+  total_pax                          Float?
+  unique                             String?   @db.VarChar(250)
+  update_route                       String?   @db.VarChar(100)
+  username_created                   String?   @db.VarChar(100)
+  username_modified                  String?   @db.VarChar(100)
+  zync_uploaded                      String?   @db.VarChar(100)
+  zync_uploaded_timestamp            DateTime? @db.DateTime(0)
+  record_status                      String?   @default("1") @db.Char(1)
+  send_email                         String?   @default("0") @db.Char(1)
+  route_from_sub                     String?   @db.VarChar(200)
+  route_to_sub                       String?   @db.VarChar(200)
+  arrival_date_logbook               DateTime? @db.Date
+  arrival_time_logbook               DateTime? @db.Time(0)
+  departure_date_logbook             DateTime? @db.Date
+  departure_time_logbook             DateTime? @db.Time(0)
+  minutes_logbook                    Float?
+  hours_logbook                      Float?
+
+  @@index([departure_date], map: "Index_departure_date")
+  @@index([flight_id], map: "Index_flight_id")
+  @@index([route_from], map: "Index_route_from")
+  @@index([route_to], map: "Index_route_to")
+  @@index([arrival_date], map: "arrival_date")
+}
+
+model tbl_rp_flights {
+  base                          String?   @db.VarChar(50)
+  charge_stand_by               Float?
+  customer_1                    String?   @db.VarChar(50)
+  date                          DateTime? @db.Date
+  date_created                  DateTime? @db.Date
+  date_modified                 DateTime? @db.Date
+  flight_id                     String?   @db.VarChar(100)
+  flight_type                   String?   @db.VarChar(100)
+  helicopter_id                 String?   @db.VarChar(100)
+  hour_client                   Float?
+  hour_meter                    Float?
+  hour_meter_start              Float?
+  hour_meter_end                Float?
+  hour_meter_total              Float?
+  ipad_id                       String?   @db.VarChar(100)
+  mail_send_customer            String?   @db.VarChar(50)
+  minutes_helicol               Float?
+  overnight_stay                Float?
+  pk_flights                    Int       @id @default(autoincrement()) @db.UnsignedInt
+  record_number                 String?   @db.VarChar(50)
+  rp_customer                   String?   @db.VarChar(50)
+  serial                        Float?
+  signature                     String?   @db.VarChar(100)
+  signature_calc                Float?
+  sync_status                   String?   @db.VarChar(10)
+  time_stand_by                 Float?
+  timestamp_created             DateTime? @db.DateTime(0)
+  timestamp_modified            DateTime? @db.DateTime(0)
+  timestamp_modified_calc       DateTime? @db.DateTime(0)
+  total_minutes                 Float?
+  type                          String?   @db.VarChar(100)
+  type_of_flight_1              String?   @db.VarChar(100)
+  unique                        String?   @db.VarChar(100)
+  username_created              String?   @db.VarChar(100)
+  username_modified             String?   @db.VarChar(100)
+  username_modified_calc        String?   @db.VarChar(100)
+  customer_2                    String?   @db.VarChar(50)
+  customer_3                    String?   @db.VarChar(50)
+  customer_all                  String?   @db.VarChar(200)
+  end_fuel                      Float?
+  flight_reported               String?   @db.VarChar(100)
+  fuel_consumed                 Float?
+  hours_helicol                 Float?
+  link_signature                String?   @db.VarChar(50)
+  minutes_client                Float?
+  name                          String?   @db.VarChar(100)
+  pid                           String?   @db.VarChar(100)
+  pilots                        String?   @db.VarChar(200)
+  pin                           String?   @db.VarChar(100)
+  pin_validation                String?   @db.VarChar(100)
+  rp_build                      Float?
+  rp_version                    String?   @db.VarChar(50)
+  signature_tab_calc            Float?
+  start_fuel                    Float?
+  status_of_signature           String?   @db.VarChar(100)
+  sum_one                       Float?
+  sum_total_minutes             Float?
+  test                          String?   @db.VarChar(100)
+  total_fuel                    Float?
+  total_minutes_helicol         Float?
+  total_minutes_pas             Float?
+  type_of_flight_1_hour         Float?
+  type_of_flight_1_minute       Float?
+  type_of_flight_2_hour         Float?
+  type_of_flight_2_minute       Float?
+  type_of_flight_3_hour         Float?
+  type_of_flight_3_minute       Float?
+  type_of_flight_4_hour         Float?
+  type_of_flight_4_minute       Float?
+  type_of_flight_5_hour         Float?
+  type_of_flight_5_minute       Float?
+  type_of_flight_1_sub          String?   @db.VarChar(100)
+  type_of_flight_2              String?   @db.VarChar(100)
+  type_of_flight_2_sub          String?   @db.VarChar(100)
+  type_of_flight_3              String?   @db.VarChar(100)
+  type_of_flight_3_sub          String?   @db.VarChar(100)
+  type_of_flight_4              String?   @db.VarChar(100)
+  type_of_flight_4_sub          String?   @db.VarChar(100)
+  type_of_flight_5              String?   @db.VarChar(100)
+  type_of_flight_5_sub          String?   @db.VarChar(100)
+  validation_customers          Float?
+  validation_customers_txt      String?   @db.VarChar(100)
+  validation_timings            String?   @db.VarChar(250)
+  z_cop                         Float?
+  z_pl                          Float?
+  zync_uploaded                 String?   @db.VarChar(100)
+  zync_upload_timestamp         DateTime? @db.DateTime(0)
+  zz_active                     String?   @db.VarChar(100)
+  flight_report_container       String?   @db.LongText
+  signature_helicol             String?   @db.LongText
+  signature_helicol_path        String?   @db.VarChar(100)
+  signature_helicol_2           String?   @db.LongText
+  signature_helicol_2_path      String?   @db.VarChar(100)
+  signature_pilot               String?   @db.LongText
+  signature_pilot_path          String?   @db.VarChar(100)
+  signature_tab2                String?   @db.LongText
+  signature_tab2_path           String?   @db.VarChar(100)
+  record_status                 String?   @default("1") @db.Char(1)
+  sync_timestamp                DateTime? @db.DateTime(0)
+  img_text_status               String?   @db.VarChar(45)
+  send_email                    String    @default("0") @db.Char(1)
+  send_customer_email           String    @default("0") @db.Char(1)
+  send_flat_file_flight_details String    @default("0") @db.Char(1)
+  send_flat_file_pilots         String    @default("0") @db.Char(1)
+  uuid_flight                   String    @db.Char(36)
+
+  @@index([customer_all], map: "Index_customer_all")
+  @@index([flight_id], map: "Index_flight_id")
+  @@index([flight_type], map: "Index_flight_type")
+  @@index([pilots], map: "Index_pilots")
+  @@index([rp_customer], map: "Index_rp_customer")
+}
+
+model tbl_rp_flights_audit {
+  base                          String?   @db.VarChar(50)
+  charge_stand_by               Float?
+  customer_1                    String?   @db.VarChar(50)
+  date                          DateTime? @db.Date
+  date_created                  DateTime? @db.Date
+  date_modified                 DateTime? @db.Date
+  flight_id                     String?   @db.VarChar(100)
+  flight_type                   String?   @db.VarChar(100)
+  helicopter_id                 String?   @db.VarChar(100)
+  hour_client                   Float?
+  hour_meter                    Float?
+  hour_meter_start              Float?
+  hour_meter_end                Float?
+  hour_meter_total              Float?
+  ipad_id                       String?   @db.VarChar(100)
+  mail_send_customer            String?   @db.VarChar(50)
+  minutes_helicol               Float?
+  overnight_stay                Float?
+  pk_flights_audit              Int       @id @default(autoincrement()) @db.UnsignedInt
+  pk_flights                    Int?      @db.UnsignedInt
+  record_number                 String?   @db.VarChar(50)
+  rp_customer                   String?   @db.VarChar(50)
+  serial                        Float?
+  signature                     String?   @db.VarChar(100)
+  signature_calc                Float?
+  sync_status                   String?   @db.VarChar(10)
+  time_stand_by                 Float?
+  timestamp_created             DateTime? @db.DateTime(0)
+  timestamp_modified            DateTime? @db.DateTime(0)
+  timestamp_modified_calc       DateTime? @db.DateTime(0)
+  total_minutes                 Float?
+  type                          String?   @db.VarChar(100)
+  type_of_flight_1              String?   @db.VarChar(100)
+  unique                        String?   @db.VarChar(100)
+  username_created              String?   @db.VarChar(100)
+  username_modified             String?   @db.VarChar(100)
+  username_modified_calc        String?   @db.VarChar(100)
+  customer_2                    String?   @db.VarChar(50)
+  customer_3                    String?   @db.VarChar(50)
+  customer_all                  String?   @db.VarChar(200)
+  end_fuel                      Float?
+  flight_reported               String?   @db.VarChar(100)
+  fuel_consumed                 Float?
+  hours_helicol                 Float?
+  link_signature                String?   @db.VarChar(50)
+  minutes_client                Float?
+  name                          String?   @db.VarChar(100)
+  pid                           String?   @db.VarChar(100)
+  pilots                        String?   @db.VarChar(200)
+  pin                           String?   @db.VarChar(100)
+  pin_validation                String?   @db.VarChar(100)
+  rp_build                      Float?
+  rp_version                    String?   @db.VarChar(50)
+  signature_tab_calc            Float?
+  start_fuel                    Float?
+  status_of_signature           String?   @db.VarChar(100)
+  sum_one                       Float?
+  sum_total_minutes             Float?
+  test                          String?   @db.VarChar(100)
+  total_fuel                    Float?
+  total_minutes_helicol         Float?
+  total_minutes_pas             Float?
+  type_of_flight_1_hour         Float?
+  type_of_flight_1_minute       Float?
+  type_of_flight_2_hour         Float?
+  type_of_flight_2_minute       Float?
+  type_of_flight_3_hour         Float?
+  type_of_flight_3_minute       Float?
+  type_of_flight_4_hour         Float?
+  type_of_flight_4_minute       Float?
+  type_of_flight_5_hour         Float?
+  type_of_flight_5_minute       Float?
+  type_of_flight_1_sub          String?   @db.VarChar(100)
+  type_of_flight_2              String?   @db.VarChar(100)
+  type_of_flight_2_sub          String?   @db.VarChar(100)
+  type_of_flight_3              String?   @db.VarChar(100)
+  type_of_flight_3_sub          String?   @db.VarChar(100)
+  type_of_flight_4              String?   @db.VarChar(100)
+  type_of_flight_4_sub          String?   @db.VarChar(100)
+  type_of_flight_5              String?   @db.VarChar(100)
+  type_of_flight_5_sub          String?   @db.VarChar(100)
+  validation_customers          Float?
+  validation_customers_txt      String?   @db.VarChar(100)
+  validation_timings            String?   @db.VarChar(250)
+  z_cop                         Float?
+  z_pl                          Float?
+  zync_uploaded                 String?   @db.VarChar(100)
+  zync_upload_timestamp         DateTime? @db.DateTime(0)
+  zz_active                     String?   @db.VarChar(100)
+  flight_report_container       String?   @db.LongText
+  signature_helicol             String?   @db.LongText
+  signature_helicol_2           String?   @db.LongText
+  signature_pilot               String?   @db.LongText
+  signature_tab2                String?   @db.LongText
+  record_status                 String?   @default("1") @db.Char(1)
+  sync_timestamp                DateTime? @db.DateTime(0)
+  img_text_status               String?   @db.VarChar(45)
+  send_email                    String?   @default("0") @db.Char(1)
+  send_customer_email           String?   @default("0") @db.Char(1)
+  send_flat_file_flight_details String?   @default("0") @db.Char(1)
+  send_flat_file_pilots         String?   @default("0") @db.Char(1)
+
+  @@index([customer_all], map: "Index_customer_all")
+  @@index([flight_id], map: "Index_flight_id")
+  @@index([flight_type], map: "Index_flight_type")
+  @@index([pilots], map: "Index_pilots")
+  @@index([rp_customer], map: "Index_rp_customer")
+}
+
+model tbl_rp_fuel {
+  date_created          DateTime? @db.Date
+  date_modified         DateTime? @db.Date
+  field                 String?   @db.VarChar(100)
+  flight_id             String?   @db.VarChar(100)
+  fuel_provider         String?   @db.VarChar(100)
+  invoice_number        String?   @db.VarChar(100)
+  month_created         String?   @db.VarChar(50)
+  no_gallons            Float?
+  pk_fuel               Int       @id @default(autoincrement()) @db.UnsignedInt
+  place                 String?   @db.VarChar(100)
+  primary               String?   @db.VarChar(100)
+  record_number         String?   @db.VarChar(50)
+  rp_customer           String?   @db.VarChar(100)
+  serial                Float?
+  sync_status           String?   @db.VarChar(50)
+  timestamp_created     DateTime  @default(now()) @db.Timestamp(0)
+  timestamp_modified    DateTime  @default(dbgenerated("'0000-00-00 00:00:00'")) @db.Timestamp(0)
+  total_fuel            Float?
+  type                  String?   @db.VarChar(50)
+  unique                String?   @db.VarChar(250)
+  username_created      String?   @db.VarChar(50)
+  username_modified     String?   @db.VarChar(50)
+  zync_uploaded         String?   @db.VarChar(100)
+  zync_upload_timestamp DateTime  @default(dbgenerated("'0000-00-00 00:00:00'")) @db.Timestamp(0)
+  send_email            String    @default("0") @db.Char(1)
+  uuid_fuel             String    @db.Char(36)
+
+  @@index([flight_id], map: "Index_flight_id")
+  @@index([rp_customer], map: "Index_rp_customer")
+}
+
+model tbl_rp_fuel_audit {
+  date_created          DateTime? @db.Date
+  date_modified         DateTime? @db.Date
+  field                 String?   @db.VarChar(100)
+  flight_id             String?   @db.VarChar(100)
+  fuel_provider         String?   @db.VarChar(100)
+  invoice_number        String?   @db.VarChar(100)
+  month_created         String?   @db.VarChar(50)
+  no_gallons            Float?
+  pk_fuel_audit         Int       @id @default(autoincrement()) @db.UnsignedInt
+  pk_fuel               Int?      @db.UnsignedInt
+  place                 String?   @db.VarChar(100)
+  primary               String?   @db.VarChar(100)
+  record_number         String?   @db.VarChar(50)
+  rp_customer           String?   @db.VarChar(100)
+  serial                Float?
+  sync_status           String?   @db.VarChar(50)
+  timestamp_created     DateTime? @db.DateTime(0)
+  timestamp_modified    DateTime? @db.DateTime(0)
+  total_fuel            Float?
+  type                  String?   @db.VarChar(50)
+  unique                String?   @db.VarChar(250)
+  username_created      String?   @db.VarChar(50)
+  username_modified     String?   @db.VarChar(50)
+  zync_uploaded         String?   @db.VarChar(100)
+  zync_upload_timestamp DateTime? @db.DateTime(0)
+  send_email            String?   @default("0") @db.Char(1)
+
+  @@index([flight_id], map: "Index_flight_id")
+  @@index([rp_customer], map: "Index_rp_customer")
+}
+
+model tbl_rp_pilots {
+  flight_id             String?   @db.VarChar(100)
+  name                  String?   @db.VarChar(200)
+  primary               String?   @db.VarChar(250)
+  rp_customer           String?   @db.VarChar(100)
+  sync_status           String?   @db.VarChar(50)
+  type                  String?   @db.VarChar(50)
+  username_created      String?   @db.VarChar(50)
+  username_modified     String?   @db.VarChar(50)
+  zync_uploaded         String?   @db.VarChar(100)
+  pk_pilots             Int       @id @default(autoincrement()) @db.UnsignedInt
+  registration_number   String?   @db.VarChar(100)
+  serial                Float?
+  date_created          DateTime? @db.Date
+  date_modified         DateTime? @db.Date
+  timestamp_created     DateTime  @default(now()) @db.Timestamp(0)
+  timestamp_modified    DateTime  @default(dbgenerated("'0000-00-00 00:00:00'")) @db.Timestamp(0)
+  zync_upload_timestamp DateTime  @default(dbgenerated("'0000-00-00 00:00:00'")) @db.Timestamp(0)
+  record_number         String?   @db.VarChar(100)
+  unique                String?   @db.VarChar(250)
+  send_email            String    @default("0") @db.Char(1)
+  arrival_time          DateTime? @db.Time(0)
+  uuid_pilot            String    @db.Char(36)
+  D_VFR                 Int?
+  A_VFR                 Int?
+  D_IFR                 Int?
+  A_IFR                 Int?
+  D_NOC                 Int?
+  A_NOC                 Int?
+
+  @@index([flight_id], map: "Index_flight_id")
+  @@index([rp_customer], map: "Index_rp_customer")
+}
+
+model tbl_rp_pilots_audit {
+  flight_id             String?   @db.VarChar(100)
+  name                  String?   @db.VarChar(200)
+  primary               String?   @db.VarChar(250)
+  rp_customer           String?   @db.VarChar(100)
+  sync_status           String?   @db.VarChar(50)
+  type                  String?   @db.VarChar(50)
+  username_created      String?   @db.VarChar(50)
+  username_modified     String?   @db.VarChar(50)
+  zync_uploaded         String?   @db.VarChar(100)
+  pk_pilots_audit       Int       @id @default(autoincrement()) @db.UnsignedInt
+  pk_pilots             Int?      @db.UnsignedInt
+  registration_number   String?   @db.VarChar(100)
+  serial                Float?
+  date_created          DateTime? @db.Date
+  date_modified         DateTime? @db.Date
+  timestamp_created     DateTime? @db.DateTime(0)
+  timestamp_modified    DateTime? @db.DateTime(0)
+  zync_upload_timestamp DateTime? @db.DateTime(0)
+  record_number         String?   @db.VarChar(100)
+  unique                String?   @db.VarChar(250)
+  send_email            String?   @default("0") @db.Char(1)
+  arrival_time          DateTime? @db.Time(0)
+
+  @@index([flight_id], map: "Index_flight_id")
+  @@index([rp_customer], map: "Index_rp_customer")
+}
+
+model tbl_tx_message_log {
+  DID                                          Int       @id @default(autoincrement())
+  message_type                                 String    @db.VarChar(20)
+  message_status                               String    @db.VarChar(20)
+  message_status_description                   String?   @db.VarChar(100)
+  requestor                                    String?   @db.VarChar(30)
+  message_id                                   String?   @db.VarChar(45)
+  device_id                                    String?   @db.VarChar(45)
+  profile                                      String?   @db.VarChar(30)
+  app_version                                  String?   @db.VarChar(30)
+  search_attribute_1                           String?   @db.VarChar(45)
+  search_attribute_2                           String?   @db.VarChar(45)
+  req_generation_started_at_device_timestamp   DateTime? @db.DateTime(0)
+  req_initiated_at_device_timestamp            DateTime? @db.DateTime(0)
+  req_received_at_server_timestamp             DateTime? @db.DateTime(0)
+  req_processing_initiated_at_server_timestamp DateTime? @db.DateTime(0)
+  res_generation_completed_at_server_timestamp DateTime? @db.DateTime(0)
+  res_dispatched_at_server_timestamp           DateTime? @db.DateTime(0)
+  res_received_at_device_timestamp             DateTime? @db.DateTime(0)
+  res_processing_completed_at_device_timestamp DateTime? @db.DateTime(0)
+  created_date                                 DateTime? @db.DateTime(0)
+  created_by                                   String?   @db.VarChar(30)
+  last_modified_date                           DateTime? @db.DateTime(0)
+  last_modified_by                             String?   @db.VarChar(30)
+  record_status                                Boolean?  @default(true)
+
+  @@index([device_id], map: "index_device_id")
+  @@index([message_id], map: "index_message_id")
+  @@index([record_status], map: "index_record_status")
+  @@index([search_attribute_1], map: "index_search_attribute_1")
+  @@index([search_attribute_2], map: "index_search_attribute_2")
+}
