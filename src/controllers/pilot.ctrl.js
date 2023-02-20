@@ -37,6 +37,7 @@ const createUpdatePilot = async (req, res) => {
       where: {
         uuid_pilot: uuidPilot,
       },
+      select: { uuid_pilot: true },
     });
 
     const dataPilot = {

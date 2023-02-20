@@ -34,6 +34,9 @@ const createUpdateFuel = async (req, res) => {
       where: {
         uuid_fuel: uuidFuel,
       },
+      select: {
+        uuid_fuel: true,
+      },
     });
 
     const dataFuel = {
