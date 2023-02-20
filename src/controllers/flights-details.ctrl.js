@@ -49,6 +49,7 @@ const createUpdateFlightDetails = async (req, res) => {
       where: {
         uuid_flight_detail: uuidFlightDetail,
       },
+      select: { uuid_flight_detail: true },
     });
 
     const dataFlightsDetail = {
