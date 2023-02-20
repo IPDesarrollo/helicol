@@ -53,42 +53,64 @@ const createUpdateFlightDetails = async (req, res) => {
 
     const dataFlightsDetail = {
       uuid_flight_detail: uuidFlightDetail,
-      pk_flight_details: Number(pkFlightDetails),
-      arrival_date: dateFormat(arrivalDate, 'yyyy-MM-dd'),
-      arrival_time: dateFormat(arrivalTime, 'HH:mm:ss'),
+      pk_flight_details: pkFlightDetails ? Number(pkFlightDetails) : null,
+      arrival_date: arrivalDate ? dateFormat(arrivalDate, 'yyyy-MM-dd') : null,
+      arrival_time: arrivalTime ? dateFormat(arrivalTime, 'HH:mm:ss') : null,
       cargo: parseFloat(cargo),
-      date_created: dateFormat(dateCreated, 'yyyy-MM-dd'),
-      date_modified: dateFormat(dateModified, 'yyyy-MM-dd'),
-      departure_date: dateFormat(departureDate, 'yyyy-MM-dd'),
-      departure_time: dateFormat(departureTime, 'HH:mm:ss'),
+      date_created: dateCreated ? dateFormat(dateCreated, 'yyyy-MM-dd') : null,
+      date_modified: dateModified
+        ? dateFormat(dateModified, 'yyyy-MM-dd')
+        : null,
+      departure_date: departureDate
+        ? dateFormat(departureDate, 'yyyy-MM-dd')
+        : null,
+      departure_time: departureTime
+        ? dateFormat(departureTime, 'HH:mm:ss')
+        : null,
       flight_id: flightId,
-      hour: parseFloat(hour),
-      minutes: parseFloat(minutes),
+      hour: hour ? parseFloat(hour) : null,
+      minutes: minutes ? parseFloat(minutes) : null,
       ipad_id: ipadId,
       month_created: monthCreated,
       observation,
-      passengers_final_destination: parseFloat(passengersFinalDestination),
-      passengers_in_transit: parseFloat(passengersInTransit),
-      pax: parseFloat(pax),
+      passengers_final_destination: passengersFinalDestination
+        ? parseFloat(passengersFinalDestination)
+        : null,
+      passengers_in_transit: passengersInTransit
+        ? parseFloat(passengersInTransit)
+        : null,
+      pax: pax ? parseFloat(pax) : null,
       route_from: routeFrom,
       route_to: routeTo,
       rp_customer: rpCustomer,
-      serial: parseFloat(serial),
-      timestamp_created: dateFormat(timestampCreated),
-      timestamp_modified: dateFormat(timestampModified),
+      serial: serial ? parseFloat(serial) : null,
+      timestamp_created: timestampCreated ? dateFormat(timestampCreated) : null,
+      timestamp_modified: timestampModified
+        ? dateFormat(timestampModified)
+        : null,
       username_created: usernameCreated,
       username_modified: usernameModified,
-      arrival_date_logbook: dateFormat(arrivalDateLogbook, 'yyyy-MM-dd'),
-      arrival_time_logbook: dateFormat(arrivalTimeLogbook, 'HH:mm:ss'),
-      departure_date_logbook: dateFormat(departureDateLogbook, 'yyyy-MM-dd'),
-      departure_time_logbook: dateFormat(departureTimeLogbook, 'HH:mm:ss'),
-      hours_logbook: parseFloat(hoursLogbook),
-      minutes_logbook: parseFloat(minutesLogbook),
+      arrival_date_logbook: arrivalDateLogbook
+        ? dateFormat(arrivalDateLogbook, 'yyyy-MM-dd')
+        : null,
+      arrival_time_logbook: arrivalTimeLogbook
+        ? dateFormat(arrivalTimeLogbook, 'HH:mm:ss')
+        : null,
+      departure_date_logbook: departureDateLogbook
+        ? dateFormat(departureDateLogbook, 'yyyy-MM-dd')
+        : null,
+      departure_time_logbook: departureTimeLogbook
+        ? dateFormat(departureTimeLogbook, 'HH:mm:ss')
+        : null,
+      hours_logbook: hoursLogbook ? parseFloat(hoursLogbook) : null,
+      minutes_logbook: minutesLogbook ? parseFloat(minutesLogbook) : null,
       send_email: sendEmail,
-      zync_uploaded_timestamp: dateFormat(zyncUploadedTimestamp),
+      zync_uploaded_timestamp: zyncUploadedTimestamp
+        ? dateFormat(zyncUploadedTimestamp)
+        : null,
     };
 
-    const filterDataFlightsDetail = formatData(dataFlightsDetail);
+    const filterDataFlightsDetail = await formatData(dataFlightsDetail);
 
     if (!findUUID) {
       const createFlightDetail = await prisma.tbl_rp_flight_details.create({

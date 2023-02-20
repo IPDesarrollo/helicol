@@ -65,10 +65,10 @@ const updateCreateFlightsValidator = [
   check('type_of_flight_5_hour').optional().notEmpty().isString(),
   check('type_of_flight_5_minute').optional().notEmpty().isString(),
   check('validation_timings').optional().notEmpty().isString(),
-  check('signature_helicol').optional().notEmpty().isString(),
+  check('signature_helicol').optional().isString(),
   check('signature_helicol_2').optional().notEmpty().isString(),
-  check('signature_pilot').optional().notEmpty().isString(),
-  check('signature_tab2').optional().notEmpty().isString(),
+  check('signature_pilot').optional().isString(),
+  check('signature_tab2').optional().isString(),
   (req, res, next) => validateResults(req, res, next),
 ];
 

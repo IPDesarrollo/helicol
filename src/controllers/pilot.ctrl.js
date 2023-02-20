@@ -42,7 +42,7 @@ const createUpdatePilot = async (req, res) => {
     const dataPilot = {
       uuid_pilot: uuidPilot,
       flight_id: flightId,
-      arrival_time: dateFormat(arrivalTime, 'HH:mm:ss'),
+      arrival_time: arrivalTime ? dateFormat(arrivalTime, 'HH:mm:ss') : null,
       name,
       rp_customer: rpCustomer,
       type,
@@ -50,10 +50,14 @@ const createUpdatePilot = async (req, res) => {
       username_modified: usernameModified,
       registration_number: registrationNumber,
       serial: Number(serial),
-      date_created: dateFormat(dateCreated, 'yyyy-MM-dd'),
-      date_modified: dateFormat(dateModified, 'yyyy-MM-dd'),
-      timestamp_created: dateFormat(timestampCreated),
-      timestamp_modified: dateFormat(timestampModified),
+      date_created: dateCreated ? dateFormat(dateCreated, 'yyyy-MM-dd') : null,
+      date_modified: dateModified
+        ? dateFormat(dateModified, 'yyyy-MM-dd')
+        : null,
+      timestamp_created: timestampCreated ? dateFormat(timestampCreated) : null,
+      timestamp_modified: timestampModified
+        ? dateFormat(timestampModified)
+        : null,
       D_VFR: Number(dVfr),
       A_VFR: Number(aVfr),
       D_IFR: Number(dIfr),
@@ -61,7 +65,9 @@ const createUpdatePilot = async (req, res) => {
       D_NOC: Number(dNoc),
       A_NOC: Number(aNoc),
       send_email: sendEmail,
-      zync_upload_timestamp: dateFormat(zyncUploadTimestamp),
+      zync_upload_timestamp: zyncUploadTimestamp
+        ? dateFormat(zyncUploadTimestamp)
+        : null,
     };
 
     const filterDataPilot = formatData(dataPilot);

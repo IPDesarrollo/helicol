@@ -45,17 +45,23 @@ const createUpdateFuel = async (req, res) => {
       no_gallons: parseFloat(noGallons),
       place,
       type,
-      date_created: dateFormat(dateCreated, 'yyyy-MM-dd'),
-      date_modified: dateFormat(dateModified, 'yyyy-MM-dd'),
+      date_created: dateCreated ? dateFormat(dateCreated, 'yyyy-MM-dd') : null,
+      date_modified: dateModified
+        ? dateFormat(dateModified, 'yyyy-MM-dd')
+        : null,
       flight_id: flightId,
       rp_customer: rpCustomer,
       serial: parseFloat(serial),
-      timestamp_created: dateFormat(timestampCreated),
-      timestamp_modified: dateFormat(timestampModified),
+      timestamp_created: timestampCreated ? dateFormat(timestampCreated) : null,
+      timestamp_modified: timestampModified
+        ? dateFormat(timestampModified)
+        : null,
       username_created: usernameCreated,
       username_modified: usernameModified,
       send_email: sendEmail,
-      zync_upload_timestamp: dateFormat(zyncUploadTimestamp),
+      zync_upload_timestamp: zyncUploadTimestamp
+        ? dateFormat(zyncUploadTimestamp)
+        : null,
     };
 
     const filterDataFuel = formatData(dataFuel);
