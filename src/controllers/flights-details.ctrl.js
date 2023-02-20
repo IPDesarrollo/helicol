@@ -111,8 +111,8 @@ const createUpdateFlightDetails = async (req, res) => {
       zync_uploaded_timestamp: zyncUploadedTimestamp
         ? dateFormat(zyncUploadedTimestamp)
         : null,
-      route_from_sub: RouteFromSub,
-      route_to_sub: RouteToSub,
+      Route_From_Sub: RouteFromSub,
+      Route_To_Sub: RouteToSub,
     };
 
     const filterDataFlightsDetail = await formatData(dataFlightsDetail);

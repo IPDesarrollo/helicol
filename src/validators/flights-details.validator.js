@@ -36,8 +36,8 @@ const createUpdateFlightsDetailsValidator = [
   check('minutes_logbook').optional().notEmpty().isString(),
   check('send_email').optional().notEmpty().isString(),
   check('zync_uploaded_timestamp').optional().notEmpty().isString(),
-  check('Route_From_Sub').optional().notEmpty().isString(),
-  check('Route_To_Sub').optional().notEmpty().isString(),
+  check('route_from_sub').optional().notEmpty().isString(),
+  check('route_to_sub').optional().notEmpty().isString(),
   (req, res, next) => validateResults(req, res, next),
 ];
 
