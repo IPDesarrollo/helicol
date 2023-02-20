@@ -43,8 +43,8 @@ const createUpdateFlightDetails = async (req, res) => {
       minutes_logbook: minutesLogbook,
       send_email: sendEmail,
       zync_uploaded_timestamp: zyncUploadedTimestamp,
-      Route_From_Sub: RouteFromSub,
-      Route_To_Sub: RouteToSub,
+      route_from_sub: RouteFromSub,
+      route_to_sub: RouteToSub,
     } = req.body;
 
     const findUUID = await prisma.tbl_rp_flight_details.findFirst({
@@ -111,8 +111,8 @@ const createUpdateFlightDetails = async (req, res) => {
       zync_uploaded_timestamp: zyncUploadedTimestamp
         ? dateFormat(zyncUploadedTimestamp)
         : null,
-      Route_From_Sub: RouteFromSub,
-      Route_To_Sub: RouteToSub,
+      route_from_sub: RouteFromSub,
+      route_to_sub: RouteToSub,
     };
 
     const filterDataFlightsDetail = await formatData(dataFlightsDetail);
